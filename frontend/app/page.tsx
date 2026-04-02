@@ -3,7 +3,6 @@
 import { useState, useTransition } from "react";
 
 import { PostCard } from "../components/PostCard";
-import { TrendBrief } from "../components/TrendBrief";
 import { generateBatch, submitFeedback } from "../lib/api";
 import type { BatchResponse, FeedbackPayload, VoicePreset } from "../lib/types";
 
@@ -70,6 +69,10 @@ export default function Page() {
         >
           {loading || isPending ? "Generating..." : "Generate Posts"}
         </button>
+
+        {loading || isPending ? (
+          <p className="generating-msg">Your posts are being generated. This may take a moment...</p>
+        ) : null}
       </section>
 
       {error ? (
@@ -78,34 +81,12 @@ export default function Page() {
         </section>
       ) : null}
 
-      {batch ? (
-        <>
-          <section className="panel batch-panel">
-            <div className="panel-header">
-              <div>
-                <p className="eyebrow">Batch Ready</p>
-                <h2>Fresh posts grounded in live source material</h2>
-                <p className="panel-copy">
-                  Batch {batch.batch_id.slice(0, 8)} generated{" "}
-                  {new Date(batch.generated_at).toLocaleString()}.
-                </p>
-              </div>
-              <div className="meta-pill-row">
-                <span className="meta-pill">{batch.voice} voice</span>
-                <span className="meta-pill">{batch.posts.length} posts</span>
-                <span className="meta-pill">{batch.trend_brief.fresh_count} fresh trends</span>
-              </div>
-            </div>
-          </section>
-
-          <TrendBrief brief={batch.trend_brief} />
-
-          <section className="posts-grid">
-            {batch.posts.map((post) => (
-              <PostCard key={post.id} onSubmitFeedback={handleFeedback} post={post} />
-            ))}
-          </section>
-        </>
+      {batch && !loading && !isPending ? (
+        <section className="posts-grid">
+          {batch.posts.map((post) => (
+            <PostCard key={post.id} onSubmitFeedback={handleFeedback} post={post} />
+          ))}
+        </section>
       ) : null}
     </main>
   );

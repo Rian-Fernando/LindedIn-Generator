@@ -165,6 +165,18 @@ textarea {
   box-shadow: none;
 }
 
+.generating-msg {
+  margin: 0;
+  color: var(--muted);
+  font-size: 1rem;
+  animation: pulse-fade 1.6s ease-in-out infinite;
+}
+
+@keyframes pulse-fade {
+  0%, 100% { opacity: 0.5; }
+  50% { opacity: 1; }
+}
+
 .panel,
 .post-card,
 .summary-card,
