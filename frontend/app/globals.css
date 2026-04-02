@@ -619,13 +619,17 @@ textarea {
 }
 
 .posts-grid {
-  grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.2rem;
+  max-width: 720px;
+  margin: 0 auto;
 }
 
 .post-card {
   display: grid;
   gap: 0.7rem;
-  padding: 1.1rem;
+  padding: 1.25rem 1.4rem;
   animation: rise-in 480ms ease;
 }
 
@@ -846,7 +850,6 @@ textarea {
     border-radius: 24px;
   }
 
-  .posts-grid,
   .summary-grid,
   .trend-grid {
     grid-template-columns: 1fr;
