@@ -1,0 +1,1 @@
+"""External trend source connectors."""

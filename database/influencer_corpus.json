@@ -1,0 +1,68 @@
+[
+  {
+    "id": "justin-welsh-observation",
+    "creator": "Justin Welsh",
+    "source_url": "https://www.justinwelsh.me/article/linkedin-guide-2026",
+    "source_type": "creator-guide",
+    "pattern_note": "Hooks are compact and mobile-first, with the first two lines doing most of the work before the fold.",
+    "reference_summary": "Short opener, clean spacing, specific point of view, and simple framework language that feels immediately usable.",
+    "hook_types": ["contrarian", "framework", "question"],
+    "structure": ["short-paragraphs", "single-list", "above-the-fold-hook"],
+    "credibility_moves": ["specific follower or performance numbers", "operating lesson", "clear takeaway"]
+  },
+  {
+    "id": "ross-simmonds-education",
+    "creator": "Ross Simmonds",
+    "source_url": "https://foundationinc.co/lab/",
+    "source_type": "creator-site",
+    "pattern_note": "Educational posts tend to open with a strong opinion, then move fast into a tactical framework or distribution lesson.",
+    "reference_summary": "Teach one useful thing, structure it cleanly, and make the post feel like a practical operator memo instead of a generic tip thread.",
+    "hook_types": ["painful-truth", "framework", "prediction"],
+    "structure": ["short-paragraphs", "numbered-steps", "practical-close"],
+    "credibility_moves": ["named channels", "clear sequences", "real-world execution framing"]
+  },
+  {
+    "id": "dave-gerhardt-category",
+    "creator": "Dave Gerhardt",
+    "source_url": "https://www.exitfive.com/",
+    "source_type": "creator-site",
+    "pattern_note": "Best posts usually feel like a direct category point of view from someone who has lived the problem.",
+    "reference_summary": "Opinionated opening, conversational body, and a tight lesson that turns a market observation into a buying insight.",
+    "hook_types": ["contrarian", "story", "painful-truth"],
+    "structure": ["short-paragraphs", "story-bridge-insight", "light-cta"],
+    "credibility_moves": ["operator lens", "clear stakes", "named function or role"]
+  },
+  {
+    "id": "lara-acosta-readability",
+    "creator": "Lara Acosta",
+    "source_url": "https://navid.me/creators/lara-acosta/",
+    "source_type": "creator-profile",
+    "pattern_note": "High-performing posts are usually easy to scan, built around an immediate hook, and stripped of dead weight.",
+    "reference_summary": "Visible white space, short lines, fast payoff, and a strong reader orientation make the post feel native to the feed.",
+    "hook_types": ["question", "painful-truth", "framework"],
+    "structure": ["short-lines", "white-space", "scannable-list"],
+    "credibility_moves": ["specific lesson", "social proof", "clear relevance"]
+  },
+  {
+    "id": "linkedin-thought-leadership",
+    "creator": "LinkedIn Marketing Solutions",
+    "source_url": "https://business.linkedin.com/marketing-solutions/success/marketing-terms/thought-leadership",
+    "source_type": "research",
+    "pattern_note": "Originality, authenticity, and useful perspective are core to thought leadership effectiveness on LinkedIn.",
+    "reference_summary": "Posts should bring a distinct point of view and add insight on trends or customer challenges rather than recycle generic commentary.",
+    "hook_types": ["insight", "trend", "contrarian"],
+    "structure": ["insight-led", "trend-to-implication", "clear-close"],
+    "credibility_moves": ["original perspective", "customer challenge framing", "practical implication"]
+  },
+  {
+    "id": "shield-performance-signals",
+    "creator": "Shield",
+    "source_url": "https://www.shieldapp.ai/",
+    "source_type": "analytics-platform",
+    "pattern_note": "Performance loops should look at what actually drove reach and engagement, not just posting volume.",
+    "reference_summary": "Treat previous post metrics as signal. Double down on hooks, formats, and topics that produced saves, comments, and distribution.",
+    "hook_types": ["metric", "question", "contrarian"],
+    "structure": ["data-claim", "brief-explanation", "clear-implication"],
+    "credibility_moves": ["analytics framing", "specific metrics", "measured optimization"]
+  }
+]
