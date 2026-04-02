@@ -18,11 +18,10 @@ METRIC_RE = re.compile(
     r"(\$[\d,.]+|\b\d+(?:\.\d+)?%|\b\d+\s?(?:days?|weeks?|months?|quarters?|hours?)\b|\b20\d{2}\b)"
 )
 CREDIBILITY_RE = re.compile(
-    r"\b(according to|research shows|data from|study|report|analysis|survey|benchmark|"
-    r"evidence|compliance|regulatory|audit|SEC|OCC|CFPB|Basel|FDIC|FINRA|"
+    r"\b(according to|research shows|data from|case study|survey finds|"
+    r"SEC|OCC|CFPB|Basel|FDIC|FINRA|Federal Reserve|"
     r"McKinsey|Deloitte|Accenture|PwC|EY|KPMG|Gartner|Forrester|CB Insights|"
-    r"Reuters|Bloomberg|case study|example|takeaway|framework|step \d|map the|"
-    r"onboarding|diligence|approvals|reconciliation)\b",
+    r"Reuters|Bloomberg|S&P|Moody's)\b",
     re.IGNORECASE,
 )
 CTA_RE = re.compile(r"\b(feel free to|hope this helps|reach out if|like and share|follow for more)\b", re.I)
@@ -52,7 +51,7 @@ def lint_post(
 
     if not METRIC_RE.search(body) and not CREDIBILITY_RE.search(body):
         flags.append("Missing credibility")
-        score -= 16
+        score -= 10
 
     paragraphs = [part.strip() for part in body.split("\n\n") if part.strip()]
     if len(paragraphs) < 3 or any(len(p.split()) > 65 for p in paragraphs):

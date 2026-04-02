@@ -337,7 +337,7 @@ class StorageService:
                 {
                     "id": row["id"],
                     "trend_id": row.get("trend_id"),
-                    "label": f"historical-{row['id']}",
+                    "label": (row.get("hook") or "")[:80] or f"historical-{row['id']}",
                     "source_type": "historical-post",
                     "hook": row["hook"],
                     "body": row["body"],
@@ -354,7 +354,7 @@ class StorageService:
             {
                 "id": row["id"],
                 "trend_id": row.get("trend_id"),
-                "label": f"historical-{row['id']}",
+                "label": (row.get("hook") or "")[:80] or f"historical-{row['id']}",
                 "source_type": "historical-post",
                 "hook": row["hook"],
                 "body": row["body"],
