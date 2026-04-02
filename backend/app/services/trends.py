@@ -34,6 +34,14 @@ KEYWORDS = {
     "fraud": 1.4,
 }
 
+# Industry-specific keywords — at least one must match for an item to qualify.
+# Generic tech terms (ai, data, agent, workflow, automation) alone are not enough.
+INDUSTRY_KEYWORDS = {
+    "fintech", "bank", "banking", "investment", "deal", "compliance",
+    "payments", "underwriting", "diligence", "fraud", "lending", "trading",
+    "capital", "finance", "financial", "regulatory", "regtech",
+}
+
 
 SOURCE_WEIGHT = {
     "news_api": 1.4,
@@ -59,6 +67,11 @@ class TrendService:
     def _keyword_score(self, text: str) -> float:
         lowered = text.lower()
         return sum(weight for keyword, weight in KEYWORDS.items() if keyword in lowered)
+
+    @staticmethod
+    def _has_industry_relevance(text: str) -> bool:
+        lowered = text.lower()
+        return any(keyword in lowered for keyword in INDUSTRY_KEYWORDS)
 
     def _relevance_reason(self, item: TrendItem) -> str:
         title = item.title.lower()
@@ -119,8 +132,12 @@ class TrendService:
                 source_counter[item.source_type] += 1
 
         ranked = self._deduplicate(merged)
-        # Filter out items with no keyword relevance to avoid noise (e.g. random PyPI packages, award promos)
-        ranked = [item for item in ranked if self._keyword_score(f"{item.title} {item.summary}") > 0]
+        # Require at least one finance/fintech keyword — generic tech terms alone (ai, data) are not enough
+        ranked = [
+            item for item in ranked
+            if self._keyword_score(f"{item.title} {item.summary}") > 0
+            and self._has_industry_relevance(f"{item.title} {item.summary}")
+        ]
         fresh = self.storage.store_trends(ranked)
         selected = (fresh[:desired] if fresh else ranked[:desired])[:desired]
 

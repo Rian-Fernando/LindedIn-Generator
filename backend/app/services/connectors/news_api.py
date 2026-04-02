@@ -30,11 +30,15 @@ class NewsAPIConnector:
             timeout=self.settings.request_timeout_seconds,
         )
         payload = response.json()
+        blocked_sources = {"pypi.org", "npmjs.com", "crates.io", "rubygems.org", "nuget.org"}
         results: list[TrendItem] = []
         for article in payload.get("articles", []):
             title = article.get("title")
             url = article.get("url")
             if not title or not url:
+                continue
+            source_name = (article.get("source") or {}).get("name", "")
+            if source_name.lower().rstrip(".") in blocked_sources:
                 continue
             published_at = article.get("publishedAt")
             results.append(
