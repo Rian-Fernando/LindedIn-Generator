@@ -88,6 +88,83 @@ textarea {
   padding: 2rem 0 4rem;
 }
 
+.landing {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 60vh;
+  gap: 2rem;
+  text-align: center;
+}
+
+.landing-title {
+  margin: 0;
+  font-family: "Avenir Next", "SF Pro Display", "Helvetica Neue", sans-serif;
+  font-size: clamp(2.6rem, 6vw, 5rem);
+  font-weight: 700;
+  letter-spacing: -0.055em;
+  line-height: 1;
+  background: linear-gradient(135deg, var(--text), var(--accent-soft));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.voice-row {
+  display: flex;
+  gap: 0.75rem;
+}
+
+.voice-btn {
+  padding: 0.85rem 1.6rem;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background: rgba(199, 216, 255, 0.06);
+  color: var(--muted);
+  font-weight: 600;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: all 180ms ease;
+}
+
+.voice-btn:hover {
+  border-color: rgba(137, 229, 226, 0.3);
+  color: var(--text);
+}
+
+.voice-btn.active {
+  background: rgba(91, 192, 190, 0.14);
+  border-color: rgba(137, 229, 226, 0.4);
+  color: var(--accent-soft);
+  box-shadow: 0 0 0 4px rgba(91, 192, 190, 0.08);
+}
+
+.generate-btn {
+  padding: 1rem 2.4rem;
+  border: 0;
+  border-radius: 999px;
+  background: linear-gradient(135deg, var(--accent-soft), var(--accent));
+  color: #071321;
+  font-weight: 700;
+  font-size: 1.05rem;
+  cursor: pointer;
+  box-shadow: 0 18px 36px rgba(91, 192, 190, 0.26);
+  transition: transform 180ms ease, box-shadow 180ms ease;
+}
+
+.generate-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 22px 44px rgba(91, 192, 190, 0.32);
+}
+
+.generate-btn:disabled {
+  cursor: wait;
+  opacity: 0.62;
+  transform: none;
+  box-shadow: none;
+}
+
 .panel,
 .post-card,
 .summary-card,
