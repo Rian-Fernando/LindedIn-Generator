@@ -21,7 +21,6 @@ function similarityTone(status: GeneratedPost["similarity"]["status"]) {
 
 export function PostCard({ post, onSubmitFeedback }: PostCardProps) {
   const [copied, setCopied] = useState(false);
-  const [showSimilarity, setShowSimilarity] = useState(false);
   const [showFeedback, setShowFeedback] = useState(false);
   const [saving, setSaving] = useState(false);
   const [feedbackMessage, setFeedbackMessage] = useState<string | null>(null);
@@ -152,30 +151,22 @@ export function PostCard({ post, onSubmitFeedback }: PostCardProps) {
       </div>
 
       <div className="post-section">
-        <button
-          className="toggle-btn"
-          onClick={() => setShowSimilarity((v) => !v)}
-          type="button"
-        >
-          <span className={`toggle-arrow${showSimilarity ? " open" : ""}`}>&#9656;</span>
-          <span className="section-label">Similarity matches</span>
-          <span className={`score-pill small ${similarityTone(post.similarity.status)}`}>
-            {post.similarity.max_score.toFixed(0)}% {post.similarity.status}
-          </span>
-        </button>
-        {showSimilarity ? (
-          <div className="hint-list">
-            {post.similarity.matches.length ? (
-              post.similarity.matches.map((match) => (
-                <p className="muted" key={match.source_id}>
-                  {match.label} ({match.source_type}) {match.score.toFixed(0)}%
-                </p>
-              ))
-            ) : (
-              <p className="muted">No significant overlap against the research corpus or prior generated posts.</p>
-            )}
-          </div>
-        ) : null}
+        <p className="section-label">Similarity matches</p>
+        <div className={`score-pill inline ${similarityTone(post.similarity.status)}`}>
+          <strong>{post.similarity.max_score.toFixed(0)}%</strong>
+          <span>{post.similarity.status}</span>
+        </div>
+        <div className="hint-list">
+          {post.similarity.matches.length ? (
+            post.similarity.matches.map((match) => (
+              <p className="muted" key={match.source_id}>
+                {match.label} ({match.source_type}) {match.score.toFixed(0)}%
+              </p>
+            ))
+          ) : (
+            <p className="muted">No significant overlap.</p>
+          )}
+        </div>
       </div>
 
       <div className="post-section">

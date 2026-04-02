@@ -27,6 +27,41 @@ DEFAULT_RSS_FEEDS = [
         "url": "https://techcrunch.com/category/fintech/feed/",
         "source_type": "rss",
     },
+    {
+        "name": "American Banker",
+        "url": "https://www.americanbanker.com/feed",
+        "source_type": "rss",
+    },
+    {
+        "name": "Financial Times - Banking",
+        "url": "https://www.ft.com/banking-finance?format=rss",
+        "source_type": "rss",
+    },
+    {
+        "name": "The Banker",
+        "url": "https://www.thebanker.com/rss",
+        "source_type": "rss",
+    },
+    {
+        "name": "Finovate",
+        "url": "https://finovate.com/feed/",
+        "source_type": "rss",
+    },
+    {
+        "name": "Tearsheet",
+        "url": "https://tearsheet.co/feed/",
+        "source_type": "rss",
+    },
+    {
+        "name": "Banking Dive",
+        "url": "https://www.bankingdive.com/feeds/news/",
+        "source_type": "rss",
+    },
+    {
+        "name": "Payments Dive",
+        "url": "https://www.paymentsdive.com/feeds/news/",
+        "source_type": "rss",
+    },
 ]
 
 
@@ -58,7 +93,7 @@ class Settings(BaseSettings):
     reddit_client_id: str | None = None
     reddit_client_secret: str | None = None
     reddit_user_agent: str = "linkedin-post-generator/1.0"
-    reddit_subreddits: str = "fintech,banking,investing,startups,MachineLearning"
+    reddit_subreddits: str = "fintech,banking,investing,startups,MachineLearning,wallstreetbets,algotrading,financialindependence,payments,cryptocurrency,RegTech"
 
     rss_feeds_json: str = Field(default_factory=lambda: json.dumps(DEFAULT_RSS_FEEDS))
 

@@ -276,7 +276,7 @@ textarea {
 .post-topline {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.65rem;
+  gap: 0.45rem;
 }
 
 .hero-chip-row {
@@ -591,7 +591,7 @@ textarea {
 }
 
 .chip {
-  padding: 0.48rem 0.85rem;
+  padding: 0.35rem 0.7rem;
   background: rgba(199, 216, 255, 0.08);
   border: 1px solid rgba(199, 216, 255, 0.08);
   color: var(--text-soft);
@@ -624,14 +624,14 @@ textarea {
 
 .post-card {
   display: grid;
-  gap: 1rem;
-  padding: 1.25rem;
+  gap: 0.7rem;
+  padding: 1.1rem;
   animation: rise-in 480ms ease;
 }
 
 .post-head-copy {
   display: grid;
-  gap: 0.7rem;
+  gap: 0.4rem;
 }
 
 .post-card h3 {
@@ -641,8 +641,8 @@ textarea {
 }
 
 .post-hook {
-  padding: 1rem 1.05rem;
-  border-radius: 22px;
+  padding: 0.75rem 0.9rem;
+  border-radius: 18px;
   border: 1px solid rgba(91, 192, 190, 0.14);
   background:
     linear-gradient(180deg, rgba(91, 192, 190, 0.1), rgba(58, 80, 107, 0.12)),
@@ -654,13 +654,17 @@ textarea {
 }
 
 .post-body p {
-  margin: 0 0 0.85rem;
-  line-height: 1.78;
+  margin: 0 0 0.55rem;
+  line-height: 1.65;
   color: var(--text-soft);
 }
 
+.post-body p:last-child {
+  margin-bottom: 0;
+}
+
 .score-pill {
-  padding: 0.65rem 0.88rem;
+  padding: 0.45rem 0.7rem;
   background: rgba(199, 216, 255, 0.08);
   border: 1px solid rgba(199, 216, 255, 0.08);
   color: var(--text-soft);
@@ -687,7 +691,7 @@ textarea {
 
 .post-section {
   display: grid;
-  gap: 0.65rem;
+  gap: 0.4rem;
 }
 
 .toggle-btn {
@@ -721,10 +725,14 @@ textarea {
   font-size: 0.78rem;
 }
 
+.score-pill.inline {
+  width: fit-content;
+}
+
 .hint-list,
 .source-links {
   display: grid;
-  gap: 0.45rem;
+  gap: 0.25rem;
 }
 
 .source-links a {
@@ -735,8 +743,8 @@ textarea {
 
 .feedback-form {
   display: grid;
-  gap: 0.9rem;
-  padding-top: 1rem;
+  gap: 0.65rem;
+  padding-top: 0.7rem;
   border-top: 1px solid rgba(173, 193, 226, 0.1);
 }
 
