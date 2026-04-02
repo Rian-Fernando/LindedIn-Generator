@@ -83,7 +83,7 @@ Anti-duplication: batch nonce (UUID), random fresh angle from 8 banking-specific
 
 - **Linting** — Regex checks for weak hooks, vague claims, fluff, missing credibility (requires metric OR named authority), readability, hashtag spam, filler CTAs, corporate closings. Score starts at 100 with deductions.
 - **Similarity** — Weighted score: 35% token overlap (Jaccard) + 40% shingle overlap (3-grams) + 25% cosine similarity. Thresholds: <25 clear, 25–45 review, ≥45 blocked.
-- **Tagging** — Scans post body for 80+ known entities (banks, fintechs, regulators, consulting firms, industry figures). Limited to 2 hints per post.
+- **Tagging** — Scans post body for 78 known entities (banks, fintechs, regulators, consulting firms, industry figures). Limited to 2 hints per post.
 
 ## Feedback loop
 

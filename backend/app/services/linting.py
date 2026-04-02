@@ -49,7 +49,8 @@ def lint_post(
         flags.append("Generic/fluffy content")
         score -= 12
 
-    if not METRIC_RE.search(body) and not CREDIBILITY_RE.search(body):
+    full_text = f"{hook}\n{body}"
+    if not METRIC_RE.search(full_text) and not CREDIBILITY_RE.search(full_text):
         flags.append("Missing credibility")
         score -= 10
 

@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+import re
+
 from app.models.schemas import TaggingHint, TrendItem
 
 
@@ -95,8 +97,10 @@ def infer_tagging_hints(body: str, related_sources: list[TrendItem]) -> list[Tag
     text = " ".join([body, *(item.title for item in related_sources), *(item.summary for item in related_sources)])
     hints: list[TaggingHint] = []
 
+    text_lower = text.lower()
     for entity, entity_type in KNOWN_ENTITIES.items():
-        if entity.lower() not in text.lower():
+        pattern = r"\b" + re.escape(entity.lower()) + r"\b"
+        if not re.search(pattern, text_lower):
             continue
         if any(existing.entity == entity for existing in hints):
             continue

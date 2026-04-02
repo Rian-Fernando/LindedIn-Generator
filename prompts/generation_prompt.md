@@ -29,7 +29,7 @@ Output requirements:
 - body must contain a concrete takeaway.
 - body should use blank lines between paragraphs.
 - Where relevant, naturally mention specific companies (e.g. JPMorgan, Stripe, Goldman Sachs, Plaid, Brex, Ramp, CFPB, SEC) or industry figures by name to strengthen credibility and enable tagging. Do not force-fit names — only include them when they genuinely relate to the trend.
-- Where possible, include at least one concrete metric, stat, or time reference (dollar amount, percentage, year, timeframe) to ground claims.
+- Every post MUST include at least one concrete metric, stat, or time reference (dollar amount, percentage, year, timeframe) to ground claims. This is required for credibility. Examples: "$2.4B", "37%", "in Q1 2026", "within 90 days". Do not skip this.
 - tagging_hints should list people or companies mentioned in the post body. Each hint needs entity, entity_type (company or person), and reason.
 - source_ids must point to the supplied trend ids used in the post.
 

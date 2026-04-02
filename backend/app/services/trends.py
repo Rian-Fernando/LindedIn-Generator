@@ -119,6 +119,8 @@ class TrendService:
                 source_counter[item.source_type] += 1
 
         ranked = self._deduplicate(merged)
+        # Filter out items with no keyword relevance to avoid noise (e.g. random PyPI packages, award promos)
+        ranked = [item for item in ranked if self._keyword_score(f"{item.title} {item.summary}") > 0]
         fresh = self.storage.store_trends(ranked)
         selected = (fresh[:desired] if fresh else ranked[:desired])[:desired]
 

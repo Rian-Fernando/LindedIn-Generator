@@ -182,7 +182,7 @@ export function PostCard({ post, onSubmitFeedback }: PostCardProps) {
           <form className="feedback-form" onSubmit={handleSubmit}>
             <div className="feedback-grid">
               {[
-                ["impressions", "Impr."],
+                ["impressions", "Impressions"],
                 ["reactions", "Reacts"],
                 ["comments", "Comments"],
                 ["reposts", "Reposts"],
