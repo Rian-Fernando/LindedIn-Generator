@@ -79,8 +79,8 @@ export function PostCard({ post, onSubmitFeedback }: PostCardProps) {
       <div className="post-hook">{post.hook}</div>
 
       <div className="post-body">
-        {post.body.split("\n\n").map((paragraph) => (
-          <p key={paragraph}>{paragraph}</p>
+        {post.body.split("\n\n").map((paragraph, idx) => (
+          <p key={idx}>{paragraph}</p>
         ))}
       </div>
 

@@ -47,7 +47,7 @@ export function TrendBrief({ brief }: TrendBriefProps) {
             <a className="trend-title" href={item.url} rel="noreferrer" target="_blank">
               {item.title}
             </a>
-            <p className="trend-summary">{item.summary || item.relevance_reason}</p>
+            {item.summary ? <p className="trend-summary">{item.summary}</p> : null}
             <p className="trend-reason">{item.relevance_reason}</p>
           </article>
         ))}
