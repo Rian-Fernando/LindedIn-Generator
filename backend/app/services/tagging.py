@@ -11,7 +11,6 @@ KNOWN_ENTITIES: dict[str, str] = {
     "Visa": "company",
     "Mastercard": "company",
     "OpenAI": "company",
-    "Anthropic": "company",
     "Adyen": "company",
     "Bloomberg": "company",
     "Nasdaq": "company",

@@ -57,7 +57,7 @@ class Settings(BaseSettings):
 
     reddit_client_id: str | None = None
     reddit_client_secret: str | None = None
-    reddit_user_agent: str = "lindin-gen/1.0"
+    reddit_user_agent: str = "linkedin-post-generator/1.0"
     reddit_subreddits: str = "fintech,banking,investing,startups,MachineLearning"
 
     rss_feeds_json: str = Field(default_factory=lambda: json.dumps(DEFAULT_RSS_FEEDS))

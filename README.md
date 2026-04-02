@@ -1,4 +1,4 @@
-# Lindin Gen
+# LinkedIn Post Generator
 
 LinkedIn post generation workflow for a B2B SaaS startup focused on investment banking and fintech automation.
 

@@ -4,7 +4,7 @@ import type { Metadata, Viewport } from "next";
 import type { ReactNode } from "react";
 
 export const metadata: Metadata = {
-  title: "Lindin Gen",
+  title: "LinkedIn Post Generator",
   description: "LinkedIn batch generation workflow for investment banking and fintech automation."
 };
 
