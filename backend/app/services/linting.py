@@ -17,6 +17,14 @@ FLUFF_RE = re.compile(
 METRIC_RE = re.compile(
     r"(\$[\d,.]+|\b\d+(?:\.\d+)?%|\b\d+\s?(?:days?|weeks?|months?|quarters?|hours?)\b|\b20\d{2}\b)"
 )
+CREDIBILITY_RE = re.compile(
+    r"\b(according to|research shows|data from|study|report|analysis|survey|benchmark|"
+    r"evidence|compliance|regulatory|audit|SEC|OCC|CFPB|Basel|FDIC|FINRA|"
+    r"McKinsey|Deloitte|Accenture|PwC|EY|KPMG|Gartner|Forrester|CB Insights|"
+    r"Reuters|Bloomberg|case study|example|takeaway|framework|step \d|map the|"
+    r"onboarding|diligence|approvals|reconciliation)\b",
+    re.IGNORECASE,
+)
 CTA_RE = re.compile(r"\b(feel free to|hope this helps|reach out if|like and share|follow for more)\b", re.I)
 CORPORATE_CLOSE_RE = re.compile(r"\b(in conclusion|to summarize|in closing)\b", re.I)
 
@@ -42,7 +50,7 @@ def lint_post(
         flags.append("Generic/fluffy content")
         score -= 12
 
-    if not METRIC_RE.search(body):
+    if not METRIC_RE.search(body) and not CREDIBILITY_RE.search(body):
         flags.append("Missing credibility")
         score -= 16
 

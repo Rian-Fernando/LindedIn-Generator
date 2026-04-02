@@ -690,6 +690,37 @@ textarea {
   gap: 0.65rem;
 }
 
+.toggle-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  color: var(--text);
+}
+
+.toggle-btn .section-label {
+  cursor: pointer;
+}
+
+.toggle-arrow {
+  display: inline-block;
+  font-size: 0.75rem;
+  color: var(--muted);
+  transition: transform 200ms ease;
+}
+
+.toggle-arrow.open {
+  transform: rotate(90deg);
+}
+
+.score-pill.small {
+  padding: 0.3rem 0.6rem;
+  font-size: 0.78rem;
+}
+
 .hint-list,
 .source-links {
   display: grid;

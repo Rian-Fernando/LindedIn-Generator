@@ -21,6 +21,8 @@ function similarityTone(status: GeneratedPost["similarity"]["status"]) {
 
 export function PostCard({ post, onSubmitFeedback }: PostCardProps) {
   const [copied, setCopied] = useState(false);
+  const [showSimilarity, setShowSimilarity] = useState(false);
+  const [showFeedback, setShowFeedback] = useState(false);
   const [saving, setSaving] = useState(false);
   const [feedbackMessage, setFeedbackMessage] = useState<string | null>(null);
   const [metrics, setMetrics] = useState({
@@ -97,10 +99,6 @@ export function PostCard({ post, onSubmitFeedback }: PostCardProps) {
           <strong>{post.lint.score}</strong>
           <span>Lint score</span>
         </div>
-        <div className={`score-pill ${similarityTone(post.similarity.status)}`}>
-          <strong>{post.similarity.max_score.toFixed(0)}%</strong>
-          <span>{post.similarity.status} similarity</span>
-        </div>
       </div>
 
       <div className="post-section">
@@ -154,65 +152,89 @@ export function PostCard({ post, onSubmitFeedback }: PostCardProps) {
       </div>
 
       <div className="post-section">
-        <p className="section-label">Similarity matches</p>
-        <div className="hint-list">
-          {post.similarity.matches.length ? (
-            post.similarity.matches.map((match) => (
-              <p className="muted" key={match.source_id}>
-                {match.label} ({match.source_type}) {match.score.toFixed(0)}%
-              </p>
-            ))
-          ) : (
-            <p className="muted">No significant overlap against the research corpus or prior generated posts.</p>
-          )}
-        </div>
+        <button
+          className="toggle-btn"
+          onClick={() => setShowSimilarity((v) => !v)}
+          type="button"
+        >
+          <span className={`toggle-arrow${showSimilarity ? " open" : ""}`}>&#9656;</span>
+          <span className="section-label">Similarity matches</span>
+          <span className={`score-pill small ${similarityTone(post.similarity.status)}`}>
+            {post.similarity.max_score.toFixed(0)}% {post.similarity.status}
+          </span>
+        </button>
+        {showSimilarity ? (
+          <div className="hint-list">
+            {post.similarity.matches.length ? (
+              post.similarity.matches.map((match) => (
+                <p className="muted" key={match.source_id}>
+                  {match.label} ({match.source_type}) {match.score.toFixed(0)}%
+                </p>
+              ))
+            ) : (
+              <p className="muted">No significant overlap against the research corpus or prior generated posts.</p>
+            )}
+          </div>
+        ) : null}
       </div>
 
-      <form className="feedback-form" onSubmit={handleSubmit}>
-        <div className="feedback-grid">
-          {[
-            ["impressions", "Impr."],
-            ["reactions", "Reacts"],
-            ["comments", "Comments"],
-            ["reposts", "Reposts"],
-            ["saves", "Saves"],
-            ["clicks", "Clicks"]
-          ].map(([field, label]) => (
-            <label key={field}>
-              <span>{label}</span>
-              <input
-                min={0}
+      <div className="post-section">
+        <button
+          className="toggle-btn"
+          onClick={() => setShowFeedback((v) => !v)}
+          type="button"
+        >
+          <span className={`toggle-arrow${showFeedback ? " open" : ""}`}>&#9656;</span>
+          <span className="section-label">Performance feedback</span>
+        </button>
+        {showFeedback ? (
+          <form className="feedback-form" onSubmit={handleSubmit}>
+            <div className="feedback-grid">
+              {[
+                ["impressions", "Impr."],
+                ["reactions", "Reacts"],
+                ["comments", "Comments"],
+                ["reposts", "Reposts"],
+                ["saves", "Saves"],
+                ["clicks", "Clicks"]
+              ].map(([field, label]) => (
+                <label key={field}>
+                  <span>{label}</span>
+                  <input
+                    min={0}
+                    onChange={(event) =>
+                      setMetrics((current) => ({
+                        ...current,
+                        [field]: Number(event.target.value || 0)
+                      }))
+                    }
+                    type="number"
+                    value={metrics[field as keyof typeof metrics] as number}
+                  />
+                </label>
+              ))}
+            </div>
+
+            <label className="notes-field">
+              <span>Notes</span>
+              <textarea
                 onChange={(event) =>
-                  setMetrics((current) => ({
-                    ...current,
-                    [field]: Number(event.target.value || 0)
-                  }))
+                  setMetrics((current) => ({ ...current, notes: event.target.value }))
                 }
-                type="number"
-                value={metrics[field as keyof typeof metrics] as number}
+                placeholder="Optional notes about what landed or what missed."
+                value={metrics.notes}
               />
             </label>
-          ))}
-        </div>
 
-        <label className="notes-field">
-          <span>Notes</span>
-          <textarea
-            onChange={(event) =>
-              setMetrics((current) => ({ ...current, notes: event.target.value }))
-            }
-            placeholder="Optional notes about what landed or what missed."
-            value={metrics.notes}
-          />
-        </label>
-
-        <div className="feedback-actions">
-          <button className="secondary-button" disabled={saving} type="submit">
-            {saving ? "Saving..." : "Save Metrics"}
-          </button>
-          {feedbackMessage ? <p className="muted compact">{feedbackMessage}</p> : null}
-        </div>
-      </form>
+            <div className="feedback-actions">
+              <button className="secondary-button" disabled={saving} type="submit">
+                {saving ? "Saving..." : "Save Metrics"}
+              </button>
+              {feedbackMessage ? <p className="muted compact">{feedbackMessage}</p> : null}
+            </div>
+          </form>
+        ) : null}
+      </div>
     </article>
   );
 }
