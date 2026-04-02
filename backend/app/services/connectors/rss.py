@@ -1,10 +1,13 @@
 from __future__ import annotations
 
 import hashlib
+import re
 from datetime import datetime
 
 import feedparser
 import httpx
+
+_HTML_TAG_RE = re.compile(r"<[^>]+>")
 
 from app.core.config import Settings
 from app.models.schemas import TrendItem
@@ -35,7 +38,7 @@ class RSSConnector:
                         source=feed.get("name", "RSS Feed"),
                         source_type=feed.get("source_type", "rss"),
                         url=link,
-                        summary=(entry.get("summary") or "")[:280],
+                        summary=_HTML_TAG_RE.sub("", (entry.get("summary") or "")).strip()[:280],
                         published_at=published_at,
                         fingerprint=hashlib.sha1(f"rss:{title.lower()}".encode()).hexdigest(),
                     )

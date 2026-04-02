@@ -489,11 +489,15 @@ textarea {
 
 .summary-card,
 .trend-card {
-  padding: 1rem;
+  padding: 0.85rem;
 }
 
 .summary-card {
   min-height: 158px;
+}
+
+.trend-card {
+  min-height: auto;
 }
 
 .trend-grid {
@@ -512,10 +516,11 @@ textarea {
 
 .trend-title {
   display: block;
-  margin: 0.75rem 0 0.35rem;
+  margin: 0.45rem 0 0.15rem;
   text-decoration: none;
   font-weight: 700;
-  line-height: 1.45;
+  line-height: 1.35;
+  font-size: 0.95rem;
 }
 
 .trend-title:hover,
@@ -525,8 +530,13 @@ textarea {
 
 .trend-summary,
 .trend-reason {
-  margin: 0.4rem 0 0;
-  line-height: 1.6;
+  margin: 0.25rem 0 0;
+  line-height: 1.5;
+  font-size: 0.9rem;
+}
+
+.trend-reason:last-child {
+  margin-bottom: 0;
 }
 
 .badge,
