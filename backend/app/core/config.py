@@ -86,8 +86,8 @@ class Settings(BaseSettings):
     news_api_key: str | None = None
     news_api_base_url: str = "https://newsapi.org/v2/everything"
     news_api_query: str = (
-        '("fintech automation" OR "investment banking automation" '
-        'OR "banking AI" OR "deal workflow software")'
+        "fintech OR banking AI OR payments automation "
+        "OR investment banking OR compliance automation"
     )
 
     reddit_client_id: str | None = None
