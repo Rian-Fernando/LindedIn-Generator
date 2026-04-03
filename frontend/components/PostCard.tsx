@@ -81,7 +81,14 @@ export function PostCard({ post, onSubmitFeedback }: PostCardProps) {
 
       <div className="post-body">
         {post.body.split("\n\n").map((paragraph, idx) => (
-          <p key={idx}>{paragraph}</p>
+          <p key={idx}>
+            {paragraph.split("\n").map((line, lineIdx, arr) => (
+              <span key={lineIdx}>
+                {line}
+                {lineIdx < arr.length - 1 && <br />}
+              </span>
+            ))}
+          </p>
         ))}
       </div>
 
