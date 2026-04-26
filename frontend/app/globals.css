@@ -18,6 +18,27 @@
   --warn: #f3c56e;
   --danger: #ff9d9d;
   --shadow: 0 30px 80px rgba(1, 6, 20, 0.5);
+
+  /* Netpost brand tokens */
+  --brand-primary: #3730a3;
+  --brand-tint: #edeef8;
+  --brand-on-dark: #ffffff;
+  --surface-base: #f7f8fa;
+  --surface-card: #ffffff;
+  --surface-dark: #0e1116;
+  --border-subtle: #e8eaf0;
+  --text-primary: #1a1f2b;
+  --text-secondary: #4b5160;
+  --text-muted: #8a8f9c;
+
+  --font-display: "Cormorant Garamond", "GT Sectra", Georgia, serif;
+  --font-ui: "Inter", "Söhne", "SF Pro Text", "Helvetica Neue", system-ui, sans-serif;
+  --font-mono: ui-monospace, Menlo, monospace;
+
+  --radius-sm: 6px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-icon: 64px;
 }
 
 * {
@@ -37,7 +58,7 @@ body {
     radial-gradient(circle at 85% 12%, rgba(199, 216, 255, 0.12), transparent 26rem),
     radial-gradient(circle at 50% 110%, rgba(58, 80, 107, 0.42), transparent 32rem),
     linear-gradient(180deg, #0f1831 0%, #0b132b 42%, #081021 100%);
-  font-family: "Avenir Next", "SF Pro Display", "SF Pro Text", "Helvetica Neue", sans-serif;
+  font-family: var(--font-ui);
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
 }
@@ -98,17 +119,36 @@ textarea {
   text-align: center;
 }
 
-.landing-title {
+.brand-lockup {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
+.brand-mark {
+  color: var(--brand-on-dark);
+  filter: drop-shadow(0 18px 48px rgba(55, 48, 163, 0.45));
+}
+
+.brand-wordmark {
   margin: 0;
-  font-family: "Avenir Next", "SF Pro Display", "Helvetica Neue", sans-serif;
-  font-size: clamp(2.6rem, 6vw, 5rem);
-  font-weight: 700;
-  letter-spacing: -0.055em;
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: clamp(3rem, 7vw, 5.4rem);
   line-height: 1;
-  background: linear-gradient(135deg, var(--text), var(--accent-soft));
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+  letter-spacing: -0.025em;
+  color: var(--text);
+}
+
+.brand-subtitle {
+  margin: 0;
+  font-family: var(--font-ui);
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: var(--muted);
 }
 
 .voice-row {
@@ -228,7 +268,7 @@ textarea {
 .post-card h3,
 .console-card h2 {
   margin: 0;
-  font-family: "Avenir Next", "SF Pro Display", "Helvetica Neue", sans-serif;
+  font-family: var(--font-ui);
   font-weight: 700;
 }
 

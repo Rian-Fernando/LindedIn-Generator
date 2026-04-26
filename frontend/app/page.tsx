@@ -2,6 +2,7 @@
 
 import { useState, useTransition } from "react";
 
+import { NetpostMark } from "../components/NetpostMark";
 import { PostCard } from "../components/PostCard";
 import { generateBatch, submitFeedback } from "../lib/api";
 import type { BatchResponse, FeedbackPayload, VoicePreset } from "../lib/types";
@@ -42,7 +43,11 @@ export default function Page() {
   return (
     <main className="page-shell">
       <section className="landing">
-        <h1 className="landing-title">LinkedIn Post Generator</h1>
+        <div className="brand-lockup">
+          <NetpostMark className="brand-mark" size={72} />
+          <h1 className="brand-wordmark">netpost</h1>
+          <p className="brand-subtitle">LinkedIn Post Generator</p>
+        </div>
 
         <div className="voice-row">
           <button
