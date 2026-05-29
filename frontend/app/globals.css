@@ -917,3 +917,25 @@ textarea {
     grid-template-columns: 1fr;
   }
 }
+
+.site-footer {
+  padding: 40px 24px 56px;
+  text-align: center;
+  font-size: 14px;
+  letter-spacing: 0.02em;
+  color: var(--text-soft);
+}
+
+.site-footer a {
+  color: var(--text-soft);
+  text-decoration: none;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.22);
+  padding-bottom: 2px;
+  opacity: 0.78;
+  transition: opacity 0.2s ease, border-color 0.2s ease;
+}
+
+.site-footer a:hover {
+  opacity: 1;
+  border-bottom-color: rgba(91, 192, 190, 0.85);
+}
