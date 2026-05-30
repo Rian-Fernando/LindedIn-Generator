@@ -4,6 +4,8 @@
 
 A no-login LinkedIn post generation workflow for a B2B SaaS startup focused on Investment Banking and Fintech Automation. Each click fetches live trends, assembles a prompt with style and voice context, generates exactly 5 posts via OpenAI, and persists everything to Supabase.
 
+Product name: **Netpost**. Live at `https://netpost.rianfernando.com` (Vercel custom domain on a subdomain of the author's portfolio at `rianfernando.com`).
+
 ## Stack
 
 | Layer | Technology | Deployment |
@@ -93,6 +95,31 @@ Users enter LinkedIn performance metrics per post. Weighted scoring: `impression
 
 Research corpus (`database/influencer_corpus.json`) stores pattern summaries from 6 sources — Justin Welsh, Ross Simmonds, Dave Gerhardt, Lara Acosta, LinkedIn Marketing Solutions, Shield Analytics. Patterns include hook types, structure patterns, and credibility moves. No copied posts.
 
+## Frontend and discoverability
+
+Single-page Next.js 15 App Router UI deployed to Vercel. One Generate button, voice toggle (founder/company), and a five-card output column. Dark theme with glass panels (`#0B132B`, `#1C2541`, `#3A506B`) and a teal accent (`#5BC0BE`). Brand identity is `Netpost` — wordmark, indigo logo mark, matching favicon and apple-touch icon.
+
+SEO and social-share metadata are implemented entirely via Next.js App Router file conventions — no third-party dependencies:
+
+| File | Output | Purpose |
+|---|---|---|
+| `frontend/app/sitemap.ts` | `/sitemap.xml` | Single home URL, weekly changefreq |
+| `frontend/app/robots.ts` | `/robots.txt` | Allow all crawlers, absolute sitemap URL |
+| `frontend/app/opengraph-image.tsx` | `/opengraph-image` (1200×630 PNG) | Generated at request time via `next/og`. No static asset checked in. |
+| `frontend/app/layout.tsx` | `<head>` metadata + JSON-LD | `metadata` export with canonical, Open Graph, Twitter card, `robots`, author; inline JSON-LD `SoftwareApplication` with `author: Person { Rian Fernando, rianfernando.com }`. Renders a footer `Built by Rian Fernando` for portfolio ↔ product backlink. |
+| `frontend/app/icon.svg` | `<link rel="icon">` | Solid indigo background with white strokes — designed to stay readable on 16×16 browser tabs in both light and dark themes. |
+| `frontend/app/apple-icon.svg` | `<link rel="apple-touch-icon">` | iOS home-screen icon, same brand mark at 180×180. |
+
+### Deployment topology
+
+| Layer | Host | URL |
+|---|---|---|
+| Frontend | Vercel | `https://netpost.rianfernando.com` (CNAME via Cloudflare → `cname.vercel-dns.com`, DNS-only / not proxied) |
+| Backend | Render | `*.onrender.com` |
+| Database | Supabase | private REST, server-to-server only |
+
+`metadataBase` is hard-coded to the subdomain, so the rendered `<link rel="canonical">` is always `https://netpost.rianfernando.com` regardless of which host serves the page. Any incidental `*.vercel.app` URL therefore declares the subdomain as canonical and search engines de-duplicate to the primary domain. On Render, `FRONTEND_URL` is set to the subdomain so CORS at `backend/app/main.py` allows the production origin. The Vercel project itself is named `netpost`; project-name OIDC token claims are not used anywhere in this stack.
+
 ## Design decisions
 
 | Decision | Why |
@@ -105,3 +132,6 @@ Research corpus (`database/influencer_corpus.json`) stores pattern summaries fro
 | No local fallback by default | Production must fail clearly if DB is missing, not silently write to ephemeral local files. |
 | No mock generation | If OpenAI isn't configured, return 503, not fake output. |
 | OpenAI only | Single provider avoids abstraction complexity. Model configurable via env var. |
+| SEO via Next.js App Router file conventions | `app/sitemap.ts`, `app/robots.ts`, `app/opengraph-image.tsx`, and `metadata` exports cover everything search engines and social cards need with zero added dependencies. |
+| Canonical pinned via `metadataBase` | Absolute canonical URL renders the subdomain even when the page is served from `*.vercel.app`, so duplicate hosts collapse to one indexable origin without needing a host-rewriting middleware. |
+| OG image generated, not static | `next/og` is built into Next 15, so a 1200×630 PNG ships without committing a binary or pulling in a design tool. Keeps brand changes to a single TSX file. |
