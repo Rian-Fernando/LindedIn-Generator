@@ -1,16 +1,42 @@
 version: 2
 updates:
+  # The frontend stack is version-pinned by design (next 15.5.14, react 18.3.1,
+  # react-dom 18.3.1). Dependabot is scoped to patch and minor updates so it
+  # surfaces fixes without proposing majors that break the build — React 19
+  # cannot resolve against @types/react-dom 18, and TypeScript 7 rejects the
+  # side-effect `import "./globals.css"` that the App Router relies on.
   - package-ecosystem: npm
     directory: /frontend
     schedule:
       interval: monthly
     open-pull-requests-limit: 5
+    ignore:
+      - dependency-name: next
+        update-types: [version-update:semver-major]
+      - dependency-name: react
+        update-types: [version-update:semver-major]
+      - dependency-name: react-dom
+        update-types: [version-update:semver-major]
+      - dependency-name: "@types/react"
+        update-types: [version-update:semver-major]
+      - dependency-name: "@types/react-dom"
+        update-types: [version-update:semver-major]
+      - dependency-name: typescript
+        update-types: [version-update:semver-major]
+      - dependency-name: "@types/node"
+        update-types: [version-update:semver-major]
 
+  # Backend requirements are pinned exactly. Majors are held back because the
+  # OpenAI SDK 1.x -> 2.x boundary changes the client surface the generation
+  # service is written against.
   - package-ecosystem: pip
     directory: /backend
     schedule:
       interval: monthly
     open-pull-requests-limit: 5
+    ignore:
+      - dependency-name: "*"
+        update-types: [version-update:semver-major]
 
   - package-ecosystem: github-actions
     directory: /
