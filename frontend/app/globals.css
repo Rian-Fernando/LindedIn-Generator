@@ -53,39 +53,31 @@ body {
   margin: 0;
   min-height: 100vh;
   color: var(--text);
+  /* No tinted gradients near the top edge. Safari samples the page colour just
+     below the toolbar to tint the tab bar, so a teal bloom up there bleeds into
+     browser chrome. The top is a flat dark navy; warmth comes from the WebGL
+     scene and a single low glow well below the fold. */
   background:
-    radial-gradient(circle at 12% 18%, rgba(91, 192, 190, 0.14), transparent 18rem),
-    radial-gradient(circle at 85% 12%, rgba(199, 216, 255, 0.12), transparent 26rem),
-    radial-gradient(circle at 50% 110%, rgba(58, 80, 107, 0.42), transparent 32rem),
+    radial-gradient(circle at 50% 120%, rgba(58, 80, 107, 0.34), transparent 30rem),
     linear-gradient(180deg, #0f1831 0%, #0b132b 42%, #081021 100%);
   font-family: var(--font-ui);
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
 }
 
-body::before,
-body::after {
+/* The bottom-right corner blob that used to live on body::after is gone — the
+   WebGL scene already supplies the atmosphere, and stacking a blurred teal
+   circle on top of it read as a glowing corner. */
+body::before {
   content: "";
   position: fixed;
   inset: 0;
   pointer-events: none;
-}
-
-body::before {
   background:
     linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
     linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
   background-size: 72px 72px;
   mask-image: linear-gradient(180deg, rgba(0, 0, 0, 0.55), transparent 90%);
-}
-
-body::after {
-  inset: auto -8rem -10rem auto;
-  width: 26rem;
-  height: 26rem;
-  border-radius: 999px;
-  background: radial-gradient(circle, rgba(91, 192, 190, 0.18), transparent 68%);
-  filter: blur(6px);
 }
 
 a {
@@ -238,12 +230,13 @@ textarea {
   inset: 0;
   border-radius: inherit;
   padding: 1px;
-  background: linear-gradient(145deg, rgba(255, 255, 255, 0.18), rgba(255, 255, 255, 0.02));
+  /* A hairline that defines the card edge, not a lit rim. */
+  background: linear-gradient(145deg, rgba(255, 255, 255, 0.09), rgba(255, 255, 255, 0.015));
   mask:
     linear-gradient(#fff 0 0) content-box,
     linear-gradient(#fff 0 0);
   mask-composite: exclude;
-  opacity: 0.65;
+  opacity: 0.45;
   pointer-events: none;
 }
 
@@ -998,23 +991,37 @@ body > .page-shell,
   border: 0;
 }
 
+/* Keyboard-only shortcut to bypass the nav. It must be reachable by Tab but
+   never by scrolling, so it is anchored to the viewport rather than the
+   document — an absolutely positioned version sits in the scrollable area and
+   can be exposed by overscroll. It is also clipped to nothing while unfocused
+   so no sliver can paint at the top edge. */
 .skip-link {
-  position: absolute;
+  position: fixed;
   left: 50%;
   top: 0;
-  transform: translate(-50%, -140%);
-  z-index: 20;
+  transform: translate(-50%, -100%);
+  z-index: 100;
   padding: 0.7rem 1.4rem;
   border-radius: 0 0 12px 12px;
   background: var(--accent);
   color: #071321;
   font-weight: 700;
   text-decoration: none;
+  clip-path: inset(50%);
   transition: transform 180ms ease;
 }
 
+.skip-link:focus,
 .skip-link:focus-visible {
   transform: translate(-50%, 0);
+  clip-path: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .skip-link {
+    transition: none;
+  }
 }
 
 /* --- nav ---------------------------------------------------- */
