@@ -3,11 +3,16 @@ import "./globals.css";
 import type { Metadata, Viewport } from "next";
 import type { ReactNode } from "react";
 
-const SITE_URL = "https://netpost.rianfernando.com";
-const SITE_NAME = "Netpost";
-const SITE_TITLE = "Netpost — LinkedIn Post Generator for Fintech & Investment Banking";
-const SITE_DESCRIPTION =
-  "Netpost generates five high-signal LinkedIn posts per click, grounded in live fintech and investment banking trends. No login. Founder or company voice, with anti-AI-slop linting.";
+import { NetpostMark } from "../components/NetpostMark";
+import {
+  AUTHOR_NAME,
+  AUTHOR_URL,
+  GITHUB_URL,
+  SITE_DESCRIPTION,
+  SITE_NAME,
+  SITE_TITLE,
+  SITE_URL
+} from "../lib/site";
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
@@ -17,9 +22,9 @@ export const metadata: Metadata = {
   },
   description: SITE_DESCRIPTION,
   applicationName: SITE_NAME,
-  authors: [{ name: "Rian Fernando", url: "https://rianfernando.com" }],
-  creator: "Rian Fernando",
-  publisher: "Rian Fernando",
+  authors: [{ name: AUTHOR_NAME, url: AUTHOR_URL }],
+  creator: AUTHOR_NAME,
+  publisher: AUTHOR_NAME,
   alternates: {
     canonical: "/"
   },
@@ -53,24 +58,28 @@ export const viewport: Viewport = {
   themeColor: "#0B132B"
 };
 
-const jsonLd = {
+// Sitewide entities. The home page adds WebApplication + FAQPage, and
+// /how-it-works adds TechArticle, so nothing is declared twice.
+const siteJsonLd = {
   "@context": "https://schema.org",
-  "@type": "SoftwareApplication",
-  name: SITE_NAME,
-  description: SITE_DESCRIPTION,
-  url: SITE_URL,
-  applicationCategory: "BusinessApplication",
-  operatingSystem: "Web",
-  offers: {
-    "@type": "Offer",
-    price: "0",
-    priceCurrency: "USD"
-  },
-  author: {
-    "@type": "Person",
-    name: "Rian Fernando",
-    url: "https://rianfernando.com"
-  }
+  "@graph": [
+    {
+      "@type": "WebSite",
+      "@id": `${SITE_URL}/#website`,
+      name: SITE_NAME,
+      description: SITE_DESCRIPTION,
+      url: SITE_URL,
+      inLanguage: "en",
+      publisher: { "@id": `${AUTHOR_URL}/#person` }
+    },
+    {
+      "@type": "Person",
+      "@id": `${AUTHOR_URL}/#person`,
+      name: AUTHOR_NAME,
+      url: AUTHOR_URL,
+      sameAs: ["https://github.com/Rian-Fernando", AUTHOR_URL]
+    }
+  ]
 };
 
 export default function RootLayout({ children }: { children: ReactNode }) {
@@ -85,15 +94,61 @@ export default function RootLayout({ children }: { children: ReactNode }) {
         />
         <script
           type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(siteJsonLd) }}
         />
       </head>
       <body>
-        {children}
-        <footer className="site-footer">
-          <a href="https://rianfernando.com" rel="author">
-            Built by Rian Fernando
+        <a className="skip-link" href="#main">
+          Skip to main content
+        </a>
+
+        <nav aria-label="Primary" className="site-nav">
+          <a aria-label={`${SITE_NAME} home`} className="site-nav-brand" href="/">
+            <NetpostMark size={22} title="Netpost logo" />
+            <span>Netpost</span>
           </a>
+          <ul className="site-nav-links">
+            <li>
+              <a href="/how-it-works">How it works</a>
+            </li>
+            <li>
+              <a href={GITHUB_URL} rel="noopener">
+                GitHub
+              </a>
+            </li>
+            <li>
+              <a href={AUTHOR_URL} rel="author">
+                Portfolio
+              </a>
+            </li>
+          </ul>
+        </nav>
+
+        {children}
+
+        <footer className="site-footer">
+          <p className="site-footer-blurb">
+            Netpost is a free, no-login LinkedIn post generator for B2B fintech and investment
+            banking teams. Five source-grounded posts per click.
+          </p>
+          <ul className="site-footer-links">
+            <li>
+              <a href="/how-it-works">How it works</a>
+            </li>
+            <li>
+              <a href="/llms.txt">llms.txt</a>
+            </li>
+            <li>
+              <a href={GITHUB_URL} rel="noopener">
+                Source
+              </a>
+            </li>
+          </ul>
+          <p>
+            <a href={AUTHOR_URL} rel="author">
+              Built by {AUTHOR_NAME}
+            </a>
+          </p>
         </footer>
       </body>
     </html>
