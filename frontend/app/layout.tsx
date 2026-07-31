@@ -136,9 +136,6 @@ export default function RootLayout({ children }: { children: ReactNode }) {
               <a href="/how-it-works">How it works</a>
             </li>
             <li>
-              <a href="/llms.txt">llms.txt</a>
-            </li>
-            <li>
               <a href={GITHUB_URL} rel="noopener">
                 Source
               </a>
