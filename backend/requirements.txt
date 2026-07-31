@@ -1,4 +1,4 @@
-fastapi==0.115.12
+fastapi==0.140.9
 feedparser==6.0.12
 httpx==0.28.1
 openai==1.75.0
