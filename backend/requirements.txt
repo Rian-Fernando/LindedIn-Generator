@@ -1,8 +1,8 @@
-fastapi==0.115.12
+fastapi==0.140.7
 feedparser==6.0.12
 httpx==0.28.1
 openai==1.75.0
 pydantic==2.13.4
-pydantic-settings==2.8.1
+pydantic-settings==2.14.2
 python-dotenv==1.2.2
 uvicorn[standard]==0.34.0
