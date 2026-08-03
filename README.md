@@ -206,11 +206,15 @@ graph in the layout, `WebApplication` + `FAQPage` on the home page, and `TechArt
 
 ### Feedback
 
-In-app feedback is collected with [Feedex](https://feedex.rianfernando.com), loaded from
-the root layout with `strategy="lazyOnload"` so it stays off the critical path. The widget
-renders only when `NEXT_PUBLIC_FEEDEX_KEY` is set, so a checkout without the variable never
-boots it keyless. Theme is pinned to `dark` because the site has no light mode, and the
-accent matches the brand teal `#5BC0BE`.
+In-app feedback is collected with [Feedex](https://feedex.rianfernando.com), loaded from the
+root layout. The widget renders only when `NEXT_PUBLIC_FEEDEX_KEY` is set, so a checkout
+without the variable never boots it keyless. Theme is pinned to `dark` because the site has
+no light mode, and the accent matches the brand teal `#5BC0BE`.
+
+The script uses `strategy="afterInteractive"` rather than the `lazyOnload` the Feedex docs
+suggest for Next. With `lazyOnload` the script is injected after the window `load` event has
+already fired — it still executes and fetches its remote config, but never attaches
+`window.Feedex` or renders a launcher, so no button appears.
 
 ## Notes
 
