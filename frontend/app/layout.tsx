@@ -178,7 +178,6 @@ export default function RootLayout({ children }: { children: ReactNode }) {
             data-feedex-label="Feedback"
             data-feedex-title="Send feedback"
             data-feedex-description="Found a bug, or did a generated post miss the mark? Tell me what happened."
-            data-feedex-categories="bug,quality,feature,other"
           />
         ) : null}
       </body>
