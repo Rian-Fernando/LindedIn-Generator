@@ -141,7 +141,7 @@ python -m pytest tests -q     # 7 tests
 ```bash
 cd frontend
 npm install
-cp .env.local.example .env.local   # NEXT_PUBLIC_BACKEND_URL=http://localhost:8000
+cp .env.local.example .env.local   # NEXT_PUBLIC_BACKEND_URL, NEXT_PUBLIC_FEEDEX_KEY
 npm run dev                        # http://localhost:3000
 npm run lint                       # tsc --noEmit
 ```
@@ -203,6 +203,14 @@ allows production traffic.
 Structured data is split so nothing is declared twice: a sitewide `WebSite` + `Person`
 graph in the layout, `WebApplication` + `FAQPage` on the home page, and `TechArticle` on
 `/how-it-works`.
+
+### Feedback
+
+In-app feedback is collected with [Feedex](https://feedex.rianfernando.com), loaded from
+the root layout with `strategy="lazyOnload"` so it stays off the critical path. The widget
+renders only when `NEXT_PUBLIC_FEEDEX_KEY` is set, so a checkout without the variable never
+boots it keyless. Theme is pinned to `dark` because the site has no light mode, and the
+accent matches the brand teal `#5BC0BE`.
 
 ## Notes
 
