@@ -156,14 +156,21 @@ export default function RootLayout({ children }: { children: ReactNode }) {
 
         {/* Feedex feedback widget. Rendered only when the key is present, so a
             local checkout without the env var never boots the widget keyless.
-            lazyOnload keeps it off the critical path — it loads after hydration
-            and does not affect LCP. Theme is pinned to dark because this site
-            has no light mode; "auto" would open a light panel for anyone whose
-            OS prefers light. */}
+
+            strategy is afterInteractive, not the lazyOnload the Feedex docs
+            suggest for Next. With lazyOnload the script is injected after the
+            window load event has already fired: it still executes and fetches
+            its remote config, but never attaches window.Feedex or renders a
+            launcher, so no button appears. afterInteractive injects during
+            hydration, while the widget's own init still has an event to hang
+            off. Verified on production both ways.
+
+            Theme is pinned to dark because this site has no light mode; "auto"
+            would open a light panel for anyone whose OS prefers light. */}
         {FEEDEX_KEY ? (
           <Script
             src="https://feedex.rianfernando.com/widget.js"
-            strategy="lazyOnload"
+            strategy="afterInteractive"
             data-feedex-key={FEEDEX_KEY}
             data-feedex-theme="dark"
             data-feedex-accent="#5BC0BE"
