@@ -2,6 +2,7 @@ import "./globals.css";
 
 import type { Metadata, Viewport } from "next";
 import type { ReactNode } from "react";
+import Script from "next/script";
 
 import { NetpostMark } from "../components/NetpostMark";
 import {
@@ -13,6 +14,11 @@ import {
   SITE_TITLE,
   SITE_URL
 } from "../lib/site";
+
+// Referenced as a full static expression so Next inlines it at build time.
+// Publishable by design (pk_fdx_...), scoped to one project and locked to the
+// configured domain, so shipping it in client HTML is intended.
+const FEEDEX_KEY = process.env.NEXT_PUBLIC_FEEDEX_KEY;
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
@@ -147,6 +153,27 @@ export default function RootLayout({ children }: { children: ReactNode }) {
             </a>
           </p>
         </footer>
+
+        {/* Feedex feedback widget. Rendered only when the key is present, so a
+            local checkout without the env var never boots the widget keyless.
+            lazyOnload keeps it off the critical path — it loads after hydration
+            and does not affect LCP. Theme is pinned to dark because this site
+            has no light mode; "auto" would open a light panel for anyone whose
+            OS prefers light. */}
+        {FEEDEX_KEY ? (
+          <Script
+            src="https://feedex.rianfernando.com/widget.js"
+            strategy="lazyOnload"
+            data-feedex-key={FEEDEX_KEY}
+            data-feedex-theme="dark"
+            data-feedex-accent="#5BC0BE"
+            data-feedex-position="bottom-right"
+            data-feedex-label="Feedback"
+            data-feedex-title="Send feedback"
+            data-feedex-description="Found a bug, or did a generated post miss the mark? Tell me what happened."
+            data-feedex-categories="bug,quality,feature,other"
+          />
+        ) : null}
       </body>
     </html>
   );
