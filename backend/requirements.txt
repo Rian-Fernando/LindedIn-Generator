@@ -1,5 +1,5 @@
 fastapi==0.140.13
-feedparser==6.0.13
+feedparser==6.0.14
 httpx==0.28.1
 openai==1.109.1
 pydantic==2.13.4
